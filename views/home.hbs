@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Some Website</title>
+	</head>
+	<body>
+		{{> header}}
+		<p>{{ screamIt welcomeMessage }}
+		<p>Some text 'ere</p>
+		<p>Hello : {{ user.name }}</p>
+		<p>Likes :
+		<ul>
+			{{#each user.likes}}
+				<li>I like {{ this }} </li>
+			{{/each}}
+		</ul>
+		{{> footer}}
+	</body>
+</html>
