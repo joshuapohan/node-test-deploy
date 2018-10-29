@@ -57,6 +57,7 @@ app.get('/about', (request, response) => {
 
 app.get('/projects', (request, response) => {
 	response.render('projects.hbs', {
+		pageTitle: 'Projects',
 		projects: ['https://github.com/senel34/node-test-deploy']
 	});
 });
