@@ -55,6 +55,12 @@ app.get('/about', (request, response) => {
 	});
 });
 
+app.get('/projects', (request, response) => {
+	response.render('projects.hbs', {
+		projects: ['https://github.com/senel34/node-test-deploy']
+	});
+});
+
 app.get('/bad', (request, response) => {
 	response.send({
 		errorMessage: 'Unable to handle response'
