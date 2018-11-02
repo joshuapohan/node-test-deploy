@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- REACT LIBRARY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+  <!-- REACT DOM LIBRARY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  <!-- BABEL LIBRARY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  <!-- REACT ROUTER -->
+  <script src="https://unpkg.com/react-router-dom@4.0.0/umd/react-router-dom.min.js"></script>
+  <!-- SHOWDOWN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.7/showdown.min.js"></script>
+  <!-- BOOTSTRAP -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Single Page Application Test</title>
+  <style>
+    body {
+      background-color: #F1F2F3;
+      margin: 0;
+    }
+
+    ul.header li {
+      display: inline;
+      list-style-type: none;
+      margin: 0;
+    }
+
+    ul.header {
+      padding: 0;
+    }
+    ul.header li a {
+      color: #FFF;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 20px;
+      display: inline-block;
+    }
+    .content {
+      background-color: #FFF;
+      padding: 20px;
+    }
+    .content h2 {
+      padding: 0;
+      margin: 0;
+    }
+    .content li {
+      margin-bottom: 10px;
+    }
+
+    .test {
+      color: #000;
+      background-color: #0099FF;
+    }
+
+    .navbar-bg{
+        background-color:#223052;
+        border-bottom: 8px solid #1e2b49;
+    }
+
+    .navbar-brand{
+      color:white;
+    }
+
+    .navbar-toggle .icon-bar{ 
+      background-color: #FFFFFF;
+    }
+
+    .navbar .nav > li > a:focus,
+    .navbar .nav > li > a:hover {
+      color: #223052 !important;
+      text-decoration: none;
+      background-color: #f9c414;
+    }
+
+    /* The sticky class is added to the navbar with JS when it reaches its scroll position */
+    .sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+      opacity : 0.95;
+    }
+
+    /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+    .sticky + .content {
+      padding-top: 100px;
+    }
+
+    /*to remove the blue border when the div is focused on*/
+    #root{
+      outline-width: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="root" tabindex="0">React has not rendered yet</div>
+  <script type="text/babel">
+
+      const {
+      HashRouter,
+      Switch,
+      Route,
+      Link,
+      IndexLink,
+      BrowserRouter,
+      NavLink
+    } = ReactRouterDOM
+
+
+    class Post extends React.Component{
+      constructor(props){
+        super(props);
+        
+        this.state = {
+          posts: null
+        };
+      }
+      
+      componentDidMount(){
+         fetch('http://jpoblog.herokuapp.com/posts/markdown?type=json')
+           .then((response) => {
+            return response.json();
+            })
+           .then((data) => {
+            this.setState({
+             posts: data   
+            });
+            console.log(data);
+          });
+        //this.setState({
+        //  posts:'test'
+        //});
+      }
+      
+      render(){
+        if(this.state.posts !== null){
+          return(
+            <div>
+             {this.state.posts.map(function(post){
+
+                var mdConverter = new showdown.Converter(),
+                postText=post.body,
+                postHTML=mdConverter.makeHtml(postText),
+                htmlObj={
+                  __html:postHTML
+                };
+                return(
+                  <div className="container" key={post.id}>
+                    <div className="row">
+                      <div className="col-xs-0 col-sm-0"></div>
+                      <div className="col-xs-12 col-sm-12">
+                        <div>
+                          <p>{post.title}</p>
+                          <p>{post.author}</p>
+                          <div dangerouslySetInnerHTML={htmlObj}></div>
+                        </div>
+                      </div>
+                      <div className="col-xs-0 col-sm-0"></div>
+                    </div>
+                  </div>                    
+                );
+              })} 
+            </div>
+          );       
+        }
+        else{
+          return(
+            <div>
+             <h1>Loading</h1> 
+            </div>
+          ); 
+        }
+      }
+    }
+
+    const Header = () => {
+          return(
+            <nav className="navbar navbar-dark navbar-bg" id="navigationbar" role="navigation">
+                <div className="container">
+                    <div className="navbar-header">
+                       <a className="navbar-brand link-no-style-white third-text-color main-text-font" href="#/">Test SPA</a>
+                       <ul className='nav navbar-nav header'>
+                          <li><NavLink exact to='/'><div onClick={() => {
+                            document.getElementById('root').focus();
+                          }}>Home</div></NavLink></li>
+                          <li><NavLink exact to='/test2'><div onClick={() => {
+                            document.getElementById('root').focus();
+                          }}>Test 2</div></NavLink></li>
+                          <li><NavLink exact to='/test3'><div onClick={() => {
+                            document.getElementById('root').focus();
+                          }}>Test 3</div></NavLink></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+          );
+    };
+
+//    const Home = () => {
+//     return(
+//        <div>
+//          <Post />
+//        </div>
+//      );
+//    };
+
+//    const Test2 = () => {
+//      return(
+//        <div>
+//          <h1>Test2</h1>  
+//        </div>
+//      );  
+//    };
+
+//    const Test3 = () => {
+//      return(
+//        <div>
+//          <h1>Test3</h1>  
+//        </div>
+//      );  
+//    };
+
+    class Home extends React.Component {
+
+      componentDidMount(){
+        document.getElementById('root').focus();
+        console.log('Mounted');
+      }
+
+      render(){
+        return(
+          <div>
+            <Post />
+          </div>
+        );
+      }
+    }
+
+    class Test2 extends React.Component {
+
+      componentDidMount(){
+        document.getElementById('root').focus();
+        console.log('Mounted');
+      }
+
+      render(){
+        return(
+          <div>
+            <h1>Test2</h1>  
+          </div>
+        ); 
+      }
+    }
+
+    class Test3 extends React.Component {
+      
+      componentDidMount(){
+        var elem = document.getElementById('root');
+        elem.focus();
+        console.log('Mounted');
+        console.log(elem);
+      }
+
+      render(){
+        return(
+          <div>
+            <h1>Test3</h1>  
+          </div>
+        ); 
+      }
+    }
+
+    class Main extends React.Component {
+      constructor(props){
+        super(props);
+      }
+
+      componentDidMount(){
+        console.log('Mounted');
+      }
+
+      render(){
+        return(
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/test2' component={Test2}/>
+            <Route path='/test3' component={Test3}/>
+          </Switch>
+        );
+      }
+    }
+
+//    const Main = () => {
+//     return(
+//        <Switch>
+//          <Route exact path='/' component={Home}/>
+//          <Route path='/test2' component={Test2}/>
+//          <Route path='/test3' component={Test3}/>
+//        </Switch>
+//      );
+//    };
+
+    class App extends React.Component {
+      constructor(props){
+        super(props);
+      }
+
+      render(){
+        return(
+          <div>
+            <Header />
+            <Main />
+          </div>
+        );
+      }
+    }
+
+//    const App = () => {
+//      return(
+//        <div ref={}>
+//          <Header />
+//          <Main />
+//        </div>
+//      );
+//    }
+
+    ReactDOM.render(
+      (
+        <HashRouter>
+          <App />
+        </HashRouter>
+      ), document.getElementById('root')
+    );
+
+    // JS Scroll part
+    window.onscroll = () => {
+      // Get the navbar
+      var navbar = document.getElementById("navigationbar");    
+      // Get the offset position of the navbar
+      var sticky = navbar.clientHeight;
+      // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+      if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+      } else {
+        navbar.classList.remove("sticky");
+      }
+    };
+  </script>
+</body>
+</html>
+
