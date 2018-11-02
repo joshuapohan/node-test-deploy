@@ -56,7 +56,7 @@ app.get('/about', (request, response) => {
 });
 
 app.get('/test', (request, response) => {
-	response.sendFile(__dirname+ '/view/SPAtest.html');
+	response.sendFile(__dirname+ '/views/SPAtest.html');
 });
 
 app.get('/projects', (request, response) => {
