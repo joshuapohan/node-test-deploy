@@ -55,6 +55,10 @@ app.get('/about', (request, response) => {
 	});
 });
 
+app.get('/test', (request, response) => {
+	response.sendFile('./view/index.html');
+});
+
 app.get('/projects', (request, response) => {
 	response.render('projects.hbs', {
 		pageTitle: 'Projects',
