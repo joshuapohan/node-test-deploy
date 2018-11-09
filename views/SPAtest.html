@@ -24,13 +24,11 @@
       background-color: #F1F2F3;
       margin: 0;
     }
-
     ul.header li {
       display: inline;
       list-style-type: none;
       margin: 0;
     }
-
     ul.header {
       padding: 0;
     }
@@ -52,32 +50,26 @@
     .content li {
       margin-bottom: 10px;
     }
-
     .test {
       color: #000;
       background-color: #0099FF;
     }
-
     .navbar-bg{
         background-color:#223052;
         border-bottom: 8px solid #1e2b49;
     }
-
     .navbar-brand{
       color:white;
     }
-
     .navbar-toggle .icon-bar{ 
       background-color: #FFFFFF;
     }
-
     .navbar .nav > li > a:focus,
     .navbar .nav > li > a:hover {
       color: #223052 !important;
       text-decoration: none;
       background-color: #f9c414;
     }
-
     /* The sticky class is added to the navbar with JS when it reaches its scroll position */
     .sticky {
       position: fixed;
@@ -86,23 +78,96 @@
       z-index: 1;
       opacity : 0.95;
     }
-
     /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
     .sticky + .content {
       padding-top: 100px;
     }
-
     /*to remove the blue border when the div is focused on*/
     #root{
       outline-width: 0;
     }
+
+    .sidenav {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #111; /* Black*/
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        opacity: 0.95;
+    }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    .action-button {
+      position: fixed;
+      top: 44.9vw;
+      left: 1.8vw;
+      height: 3.3vw;
+      width:3.3vw;
+      background-color: transparent;
+      border: 0px;
+      border-radius: 50%;
+      z-index: 9;
+      transition: 0.3s;
+    }
+    .action-button-child {
+      position: fixed;
+      top: 45vw;
+      left: 2vw;
+      height: 3vw;
+      width:3vw;
+      background-color: transparent;
+      border: 0px;
+      border-radius: 50%;
+      z-index: 8;
+      transition: 0.3s;
+    }
+
+    .share-button{
+      background-image: url('https://cbwconline.com/IMG/Share.svg');
+      background-size: contain;      
+    }
+
+    .twitter-button{
+      background-image: url('https://cbwconline.com/IMG/Twitter-Flat.png');
+      background-size: contain;
+    }
+
+    .facebook-button{
+      background-image: url('https://cbwconline.com/IMG/Facebook-Flat.png');
+      background-size: contain;
+    }
+
+    .google-button{
+      background-image: url('https://cbwconline.com/IMG/Google%20Plus.svg');
+      background-size: contain;
+    }
+
+    .action-button-top{
+      position: fixed;
+      height: 15vw;
+      width:4vw;
+      top: 33vw;
+      left: 1.5vw;
+    }
+
   </style>
 </head>
 <body>
 
   <div id="root" tabindex="0">React has not rendered yet</div>
   <script type="text/babel">
-
       const {
       HashRouter,
       Switch,
@@ -112,8 +177,6 @@
       BrowserRouter,
       NavLink
     } = ReactRouterDOM
-
-
     class Post extends React.Component{
       constructor(props){
         super(props);
@@ -144,7 +207,6 @@
           return(
             <div>
              {this.state.posts.map(function(post){
-
                 var mdConverter = new showdown.Converter(),
                 postText=post.body,
                 postHTML=mdConverter.makeHtml(postText),
@@ -179,7 +241,6 @@
         }
       }
     }
-
     const Header = () => {
           return(
             <nav className="navbar navbar-dark navbar-bg" id="navigationbar" role="navigation">
@@ -196,6 +257,7 @@
                           <li><NavLink exact to='/test3'><div onClick={() => {
                             document.getElementById('root').focus();
                           }}>Test 3</div></NavLink></li>
+                          <li><a href="javascript:void(0)" onClick={openNav}>Open</a></li>
                         </ul>
                     </div>
                 </div>
@@ -203,37 +265,11 @@
           );
     };
 
-//    const Home = () => {
-//     return(
-//        <div>
-//          <Post />
-//        </div>
-//      );
-//    };
-
-//    const Test2 = () => {
-//      return(
-//        <div>
-//          <h1>Test2</h1>  
-//        </div>
-//      );  
-//    };
-
-//    const Test3 = () => {
-//      return(
-//        <div>
-//          <h1>Test3</h1>  
-//        </div>
-//      );  
-//    };
-
     class Home extends React.Component {
-
       componentDidMount(){
         document.getElementById('root').focus();
         console.log('Mounted');
       }
-
       render(){
         return(
           <div>
@@ -244,12 +280,10 @@
     }
 
     class Test2 extends React.Component {
-
       componentDidMount(){
         document.getElementById('root').focus();
         console.log('Mounted');
       }
-
       render(){
         return(
           <div>
@@ -267,7 +301,6 @@
         console.log('Mounted');
         console.log(elem);
       }
-
       render(){
         return(
           <div>
@@ -281,11 +314,9 @@
       constructor(props){
         super(props);
       }
-
       componentDidMount(){
         console.log('Mounted');
       }
-
       render(){
         return(
           <Switch>
@@ -297,39 +328,28 @@
       }
     }
 
-//    const Main = () => {
-//     return(
-//        <Switch>
-//          <Route exact path='/' component={Home}/>
-//          <Route path='/test2' component={Test2}/>
-//          <Route path='/test3' component={Test3}/>
-//        </Switch>
-//      );
-//    };
-
     class App extends React.Component {
       constructor(props){
         super(props);
       }
-
       render(){
         return(
           <div>
+            <div id="mySidenav" className="sidenav">
+              <a className="closebtn" onClick={closeNav}>&times;</a>
+            </div>
             <Header />
             <Main />
+            <div className="action-button-top" onMouseLeave={deflateDong}>
+              <div className="action-button share-button" onMouseOver={expandDong}></div>
+              <a href="https://www.twitter.com/"><div id="child1" className="action-button-child twitter-button"></div></a>
+              <a href="https://www.facebook.com/"><div id="child2" className="action-button-child facebook-button"></div></a>
+              <a href="https://www.google.com/"><div id="child3" className="action-button-child google-button"></div></a>
+            </div>
           </div>
         );
       }
     }
-
-//    const App = () => {
-//      return(
-//        <div ref={}>
-//          <Header />
-//          <Main />
-//        </div>
-//      );
-//    }
 
     ReactDOM.render(
       (
@@ -339,6 +359,7 @@
       ), document.getElementById('root')
     );
 
+    
     // JS Scroll part
     window.onscroll = () => {
       // Get the navbar
@@ -352,7 +373,30 @@
         navbar.classList.remove("sticky");
       }
     };
+
+    /* Open the sidenav */
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "100%";
+    }
+
+    /* Close/hide the sidenav */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+  
+    function expandDong(){
+      document.getElementById("child1").style.top = "41vw";
+      document.getElementById("child2").style.top = "37vw";
+      document.getElementById("child3").style.top = "33vw";
+    }
+
+    function deflateDong(){
+      document.getElementById("child1").style.top = "45vw";
+      document.getElementById("child2").style.top = "45vw";
+      document.getElementById("child3").style.top = "45vw";      
+    }
+
+
   </script>
 </body>
 </html>
-
