@@ -18,10 +18,15 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+
   <title>Single Page Application Test</title>
   <style>
     body {
-      background-color: #F1F2F3;
+      background-color: #F5F5F5;
       margin: 0;
     }
     ul.header li {
@@ -34,9 +39,7 @@
     }
     ul.header li a {
       color: #FFF;
-      font-weight: bold;
       text-decoration: none;
-      padding: 20px;
       display: inline-block;
     }
     .content {
@@ -58,9 +61,17 @@
         background-color:#223052;
         border-bottom: 8px solid #1e2b49;
     }
+    .navbar-brand, navbar-brand > a:hover{
+      text-decoration: none !important;
+      color:white;
+      font-family: 'Raleway', serif;
+    }
+
     .navbar-brand{
+      text-decoration: none !important;
       color:white;
     }
+
     .navbar-toggle .icon-bar{ 
       background-color: #FFFFFF;
     }
@@ -70,6 +81,7 @@
       text-decoration: none;
       background-color: #f9c414;
     }
+
     /* The sticky class is added to the navbar with JS when it reaches its scroll position */
     .sticky {
       position: fixed;
@@ -85,6 +97,28 @@
     /*to remove the blue border when the div is focused on*/
     #root{
       outline-width: 0;
+      background-color: #FFFFFF;
+    }
+
+    #site-brand:hover{
+      color:white !important;
+    }
+
+    .profile-title {
+      font-family: 'Raleway', serif;
+      font-weight: Bold;
+      border-left: 2px solid;
+      padding-left: 5px;
+    }
+
+    .profile-text {
+        font-family: 'Merriweather', serif;
+    }
+
+    .avatar {
+      border: 2px solid black;
+      width: 30vw;
+      height: 30vw;
     }
 
     .sidenav {
@@ -107,6 +141,10 @@
         right: 25px;
         font-size: 36px;
         margin-left: 50px;
+    }
+
+    .footer-info {
+      background-color: #F5F5F5;
     }
 
     .action-button {
@@ -246,11 +284,14 @@
             <nav className="navbar navbar-dark navbar-bg" id="navigationbar" role="navigation">
                 <div className="container">
                     <div className="navbar-header">
-                       <a className="navbar-brand link-no-style-white third-text-color main-text-font" href="#/">Test SPA</a>
+                       <a className="navbar-brand" href="#/" id="site-brand">Test SPA</a>
                        <ul className='nav navbar-nav header'>
                           <li><NavLink exact to='/'><div onClick={() => {
                             document.getElementById('root').focus();
                           }}>Home</div></NavLink></li>
+                          <li><NavLink exact to='/blog'><div onClick={() => {
+                            document.getElementById('root').focus();
+                          }}>Blog</div></NavLink></li>
                           <li><NavLink exact to='/test2'><div onClick={() => {
                             document.getElementById('root').focus();
                           }}>Test 2</div></NavLink></li>
@@ -265,7 +306,7 @@
           );
     };
 
-    class Home extends React.Component {
+    class Blog extends React.Component{
       componentDidMount(){
         document.getElementById('root').focus();
         console.log('Mounted');
@@ -278,6 +319,47 @@
         );
       }
     }
+
+    class Home extends React.Component {
+      componentDidMount(){
+        document.getElementById('root').focus();
+        console.log('Mounted');
+      }
+      render(){
+        return(
+          <div className='container'>
+            <div className='row'>
+              <div className="col-xs-0 col-sm-0"/>
+              <div className="col-xs-8 col-sm-8">
+                <h1 className='profile-title'>Insert Profile Name Here</h1>
+                <p class='profile-text'>Insert title here?<br/><br/>Here is another line
+                <br/>supposed to contain some kind of information
+                <br/>But I'll just add lorem ipsum
+                <br/> <br/>Supposedly knows: 
+                </p>
+                <ul className='profile-text'>
+                   <li>Python</li>
+                   <li>Java</li>
+                   <li>Flask</li>
+                </ul>
+                <p className='profile-text'>Quite familiar with the basics of: </p>
+                <ul className='profile-text'>
+                   <li>Node.js</li>
+                   <li>React.js</li>
+                   <li>Flask</li>
+                </ul>
+              </div>
+              <div className="col-xs-4 col-sm-4">
+                <br/>
+                <div className='avatar'></div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
+
+
 
     class Test2 extends React.Component {
       componentDidMount(){
@@ -310,6 +392,18 @@
       }
     }
 
+
+    class Footer extends React.Component {
+
+      render() {
+        return(
+          <footer className='footer-info'>
+            <p>Testing</p>
+          </footer>
+        );
+      }
+    }
+
     class Main extends React.Component {
       constructor(props){
         super(props);
@@ -321,6 +415,7 @@
         return(
           <Switch>
             <Route exact path='/' component={Home}/>
+            <Route exact path='/blog' component={Blog}/>
             <Route path='/test2' component={Test2}/>
             <Route path='/test3' component={Test3}/>
           </Switch>
@@ -346,10 +441,12 @@
               <a href="https://www.facebook.com/"><div id="child2" className="action-button-child facebook-button"></div></a>
               <a href="https://www.google.com/"><div id="child3" className="action-button-child google-button"></div></a>
             </div>
+            <Footer/>
           </div>
         );
       }
     }
+
 
     ReactDOM.render(
       (
