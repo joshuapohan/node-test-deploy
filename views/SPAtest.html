@@ -44,7 +44,6 @@
     }
     .content {
       background-color: #FFF;
-      padding: 20px;
     }
     .content h2 {
       padding: 0;
@@ -84,7 +83,7 @@
 
     /* The sticky class is added to the navbar with JS when it reaches its scroll position */
     .sticky {
-      position: fixed;
+      position: sticky;
       top: 0;
       width: 100%;
       z-index: 1;
@@ -200,11 +199,18 @@
       left: 1.5vw;
     }
 
+    .jumbotron {
+      background-image: url("https://github.com/senel34/node-test-deploy/blob/master/bg.jpg?raw=true");
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
 
-  <div id="root" tabindex="0">React has not rendered yet</div>
+  <div id="root" tabindex="0" class='content'>React has not rendered yet</div>
   <script type="text/babel">
       const {
       HashRouter,
@@ -320,6 +326,17 @@
       }
     }
 
+    class ProfileHeader extends React.Component {
+      render(){
+        return(
+          <div className='jumbotron'>
+            <h1>Test Jumbotron</h1>
+            <p> Using bootstrap jumbotron</p>
+          </div>
+        );        
+      }
+    }
+
     class Home extends React.Component {
       componentDidMount(){
         document.getElementById('root').focus();
@@ -328,11 +345,12 @@
       render(){
         return(
           <div className='container'>
+            <ProfileHeader />
             <div className='row'>
               <div className="col-xs-0 col-sm-0"/>
               <div className="col-xs-8 col-sm-8">
                 <h1 className='profile-title'>Insert Profile Name Here</h1>
-                <p class='profile-text'>Insert title here?<br/><br/>Here is another line
+                <p className='profile-text'>Insert title here?<br/><br/>Here is another line
                 <br/>supposed to contain some kind of information
                 <br/>But I'll just add lorem ipsum
                 <br/> <br/>Supposedly knows: 
