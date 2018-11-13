@@ -26,7 +26,7 @@
   <title>Single Page Application Test</title>
   <style>
     body {
-      background-color: #F5F5F5;
+      background-color: #223052;
       margin: 0;
     }
     ul.header li {
@@ -56,6 +56,12 @@
       color: #000;
       background-color: #0099FF;
     }
+
+    .navbar{
+      margin-bottom: 0px;
+      border-radius: 0px;
+    }
+
     .navbar-bg{
         background-color:#223052;
         border-bottom: 8px solid #1e2b49;
@@ -201,6 +207,7 @@
     }
 
     .jumbotron {
+      background-color: #223052;
       background-image: url("https://github.com/senel34/node-test-deploy/blob/master/bg.jpg?raw=true");
       background-size: cover;
       color: #fff;
@@ -239,6 +246,24 @@
     @keyframes spin {
       0%{ transform: rotate(0deg);}
       100%{ transform: rotate(360deg);}
+    }
+
+    .main-text{
+      display: inline-block;
+      color:#ffffff !important;
+    }
+
+    .second-text{
+
+    }
+
+    .third-text{
+      display: inline-block;
+      color:#f9c414 !important;
+    }
+
+    .main-content{
+      padding-bottom: 80px;
     }
 
   </style>
@@ -333,12 +358,12 @@
                           <li><NavLink exact to='/blog'><div onClick={() => {
                             document.getElementById('root').focus();
                           }}>Blog</div></NavLink></li>
-                          <li><NavLink exact to='/test2'><div onClick={() => {
+                          <li><NavLink exact to='/skills'><div onClick={() => {
                             document.getElementById('root').focus();
-                          }}>Test 2</div></NavLink></li>
-                          <li><NavLink exact to='/test3'><div onClick={() => {
+                          }}>Skills</div></NavLink></li>
+                          <li><NavLink exact to='/interests'><div onClick={() => {
                             document.getElementById('root').focus();
-                          }}>Test 3</div></NavLink></li>
+                          }}>Interests</div></NavLink></li>
                           <li><a href="javascript:void(0)" onClick={openNav}>Open</a></li>
                         </ul>
                     </div>
@@ -365,7 +390,7 @@
       render(){
         return(
           <div className='jumbotron'>
-            <h1>Test Jumbotron</h1>
+            <h1 className='main-text'>Test</h1> <h1 className='third-text'>Jumbotron</h1><br></br>
             <p> Using bootstrap jumbotron</p>
             <a href='https://jpoblog.herokuapp.com' className="btn btn-primary">Visit Blog</a>
           </div>
@@ -380,8 +405,9 @@
       }
       render(){
         return(
-          <div className='container'>
-            <ProfileHeader />
+        <div>
+        <ProfileHeader />
+          <div className='container main-content'>
             <div className='row'>
               <div className="col-xs-0 col-sm-0"/>
               <div className="col-xs-8 col-sm-8">
@@ -409,13 +435,14 @@
               </div>
             </div>
           </div>
+        </div>
         );
       }
     }
 
 
 
-    class Test2 extends React.Component {
+    class Skills extends React.Component {
       componentDidMount(){
         document.getElementById('root').focus();
         console.log('Mounted');
@@ -423,13 +450,13 @@
       render(){
         return(
           <div>
-            <h1>Test2</h1>  
+            <h1>Skills</h1>  
           </div>
         ); 
       }
     }
 
-    class Test3 extends React.Component {
+    class Interests extends React.Component {
       
       componentDidMount(){
         var elem = document.getElementById('root');
@@ -440,7 +467,7 @@
       render(){
         return(
           <div>
-            <h1>Test3</h1>  
+            <h1>Interests</h1>  
           </div>
         ); 
       }
@@ -470,8 +497,8 @@
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/blog' component={Blog}/>
-            <Route path='/test2' component={Test2}/>
-            <Route path='/test3' component={Test3}/>
+            <Route path='/skills' component={Skills}/>
+            <Route path='/interests' component={Interests}/>
           </Switch>
         );
       }
@@ -495,7 +522,6 @@
               <a href="https://www.facebook.com/"><div id="child2" className="action-button-child facebook-button"></div></a>
               <a href="https://www.google.com/"><div id="child3" className="action-button-child google-button"></div></a>
             </div>
-            <Footer/>
           </div>
         );
       }
