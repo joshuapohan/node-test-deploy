@@ -116,8 +116,9 @@
 
     .avatar {
       border: 2px solid black;
-      width: 30vw;
-      height: 30vw;
+      width: 10vw;
+      height: 20vw;
+      background-color: #333;
     }
 
     .sidenav {
@@ -206,6 +207,40 @@
       text-align: center;
     }
 
+    .jumbotron p{
+      display: inline-block;
+      text-align: center;
+    }
+
+    .jumbotron a{
+      display: inline-block;
+      text-align: center;
+      margin-left: 5px;
+    }
+
+    .loader-container{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .loader{
+      position: absolute;
+      left:50%;
+      top:50%;
+      border: 10px solid #f3f3f3;
+      border-top: 10px solid #3498db;
+      border-radius: 50%;
+      width:50px;
+      height:50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0%{ transform: rotate(0deg);}
+      100%{ transform: rotate(360deg);}
+    }
+
   </style>
 </head>
 <body>
@@ -278,8 +313,8 @@
         }
         else{
           return(
-            <div>
-             <h1>Loading</h1> 
+            <div className='loader-container'>
+             <div className='loader'></div>
             </div>
           ); 
         }
@@ -332,6 +367,7 @@
           <div className='jumbotron'>
             <h1>Test Jumbotron</h1>
             <p> Using bootstrap jumbotron</p>
+            <a href='https://jpoblog.herokuapp.com' className="btn btn-primary">Visit Blog</a>
           </div>
         );        
       }
@@ -449,7 +485,7 @@
         return(
           <div>
             <div id="mySidenav" className="sidenav">
-              <a className="closebtn" onClick={closeNav}>&times;</a>
+              <a className="closebtn" onClick={closeNav} href="javascript:void(0)">&times;</a>
             </div>
             <Header />
             <Main />
