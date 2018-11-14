@@ -382,16 +382,23 @@
       constructor(props){
         super(props);
         this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.resetNavBar = this.resetNavBar.bind(this);
         this.state = {
           collapsed: true
         };
+      }
+
+      resetNavBar(){
+        document.getElementById('root').focus();
+        this.setState({
+          collapsed: true
+        });
       }
 
       toggleNavbar(){
         this.setState({
           collapsed: !this.state.collapsed
         });
-        console.log(this.state.collapsed);
       }
 
       render(){
@@ -414,18 +421,10 @@
                   </div>
                   <div className={`${menuClass}`} id="menu-items" aria-expanded="false">
                    <ul className='nav navbar-nav header' id="menu-bar">
-                      <li><NavLink exact to='/'><div onClick={() => {
-                        document.getElementById('root').focus();
-                      }}>Home</div></NavLink></li>
-                      <li><NavLink exact to='/blog'><div onClick={() => {
-                        document.getElementById('root').focus();
-                      }}>Blog</div></NavLink></li>
-                      <li><NavLink exact to='/skills'><div onClick={() => {
-                        document.getElementById('root').focus();
-                      }}>Skills</div></NavLink></li>
-                      <li><NavLink exact to='/interests'><div onClick={() => {
-                        document.getElementById('root').focus();
-                      }}>Interests</div></NavLink></li>
+                      <li><NavLink exact to='/'><div onClick={this.resetNavBar}>Home</div></NavLink></li>
+                      <li><NavLink exact to='/blog'><div onClick={this.resetNavBar}>Blog</div></NavLink></li>
+                      <li><NavLink exact to='/skills'><div onClick={this.resetNavBar}>Skills</div></NavLink></li>
+                      <li><NavLink exact to='/interests'><div onClick={this.resetNavBar}>Interests</div></NavLink></li>
                       <li><a href="javascript:void(0)" onClick={openNav}>Open</a></li>
                     </ul>
                   </div>
@@ -439,7 +438,6 @@
     class Blog extends React.Component{
       componentDidMount(){
         document.getElementById('root').focus();
-        console.log('Mounted');
       }
       render(){
         return(
@@ -465,7 +463,6 @@
     class Home extends React.Component {
       componentDidMount(){
         document.getElementById('root').focus();
-        console.log('Mounted');
       }
       render(){
         return(
@@ -509,7 +506,6 @@
     class Skills extends React.Component {
       componentDidMount(){
         document.getElementById('root').focus();
-        console.log('Mounted');
       }
       render(){
         return(
@@ -525,8 +521,6 @@
       componentDidMount(){
         var elem = document.getElementById('root');
         elem.focus();
-        console.log('Mounted');
-        console.log(elem);
       }
       render(){
         return(
@@ -554,7 +548,7 @@
         super(props);
       }
       componentDidMount(){
-        console.log('Mounted');
+
       }
       render(){
         return(
