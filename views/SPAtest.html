@@ -87,6 +87,22 @@
       background-color: #f9c414;
     }
 
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    #menu-items.show > #menu-bar{
+      flex-direction: column;
+    }
+
+    #menu-items.show > ul > li > a {
+      display: block;
+    }
+
     /* The sticky class is added to the navbar with JS when it reaches its scroll position */
     .sticky {
       position: sticky;
@@ -124,7 +140,9 @@
       border: 2px solid black;
       width: 10vw;
       height: 20vw;
-      background-color: #333;
+      /*background-color: #333;*/
+      background-image: url("https://github.com/senel34/node-test-deploy/blob/master/pp.jpg?raw=true");
+      background-size: contain;
     }
 
     .sidenav {
@@ -236,7 +254,7 @@
       left:50%;
       top:50%;
       border: 10px solid #f3f3f3;
-      border-top: 10px solid #3498db;
+      border-top: 10px solid #f9c414;
       border-radius: 50%;
       width:50px;
       height:50px;
@@ -266,6 +284,8 @@
       padding-bottom: 80px;
     }
 
+
+
   </style>
 </head>
 <body>
@@ -281,6 +301,7 @@
       BrowserRouter,
       NavLink
     } = ReactRouterDOM
+
     class Post extends React.Component{
       constructor(props){
         super(props);
@@ -345,32 +366,65 @@
         }
       }
     }
-    const Header = () => {
-          return(
-            <nav className="navbar navbar-dark navbar-bg" id="navigationbar" role="navigation">
-                <div className="container">
-                    <div className="navbar-header">
-                       <a className="navbar-brand" href="#/" id="site-brand">Test SPA</a>
-                       <ul className='nav navbar-nav header'>
-                          <li><NavLink exact to='/'><div onClick={() => {
-                            document.getElementById('root').focus();
-                          }}>Home</div></NavLink></li>
-                          <li><NavLink exact to='/blog'><div onClick={() => {
-                            document.getElementById('root').focus();
-                          }}>Blog</div></NavLink></li>
-                          <li><NavLink exact to='/skills'><div onClick={() => {
-                            document.getElementById('root').focus();
-                          }}>Skills</div></NavLink></li>
-                          <li><NavLink exact to='/interests'><div onClick={() => {
-                            document.getElementById('root').focus();
-                          }}>Interests</div></NavLink></li>
-                          <li><a href="javascript:void(0)" onClick={openNav}>Open</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-          );
-    };
+
+    class Header extends React.Component {
+
+      constructor(props){
+        super(props);
+        this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.state = {
+          collapsed: true
+        };
+      }
+
+      toggleNavbar(){
+        this.setState({
+          collapsed: !this.state.collapsed
+        });
+        console.log(this.state.collapsed);
+      }
+
+      render(){
+
+        const collapsed = this.state.collapsed;
+        const menuClass = collapsed ? "navbar-collapse collapse" : "navbar-collapse collapse show";
+
+        return(
+
+          <nav className="navbar navbar-dark navbar-bg" id="navigationbar" role="navigation">
+              <div className="container">
+                  <div className="navbar-header">
+                    <button type="button" onClick={this.toggleNavbar} className="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-items" aria-expanded="false">
+                      <span className="sr-only">Toggle navigation</span>
+                      <span className="icon-bar"></span>
+                      <span className="icon-bar"></span>
+                      <span className="icon-bar"></span>
+                    </button>
+                    <a className="navbar-brand" href="#/" id="site-brand">Test SPA</a>
+                  </div>
+                  <div className={`${menuClass}`} id="menu-items" aria-expanded="false">
+                   <ul className='nav navbar-nav header' id="menu-bar">
+                      <li><NavLink exact to='/'><div onClick={() => {
+                        document.getElementById('root').focus();
+                      }}>Home</div></NavLink></li>
+                      <li><NavLink exact to='/blog'><div onClick={() => {
+                        document.getElementById('root').focus();
+                      }}>Blog</div></NavLink></li>
+                      <li><NavLink exact to='/skills'><div onClick={() => {
+                        document.getElementById('root').focus();
+                      }}>Skills</div></NavLink></li>
+                      <li><NavLink exact to='/interests'><div onClick={() => {
+                        document.getElementById('root').focus();
+                      }}>Interests</div></NavLink></li>
+                      <li><a href="javascript:void(0)" onClick={openNav}>Open</a></li>
+                    </ul>
+                  </div>
+              </div>
+          </nav>
+        );
+      };
+    }
+
 
     class Blog extends React.Component{
       componentDidMount(){
