@@ -96,11 +96,21 @@
     }
 
     #menu-items.show > #menu-bar{
+      position: fixed;   
+      z-index: 11;
       flex-direction: column;
+      border-bottom-left-radius:2%;
+      border-bottom-right-radius:2%;
+    }
+
+    #menu-items.show > ul {
+      background-color:rgba(35, 48, 83, 0.95);
+      width: 100%;
     }
 
     #menu-items.show > ul > li > a {
       display: block;
+      text-align:center;
     }
 
     /* The sticky class is added to the navbar with JS when it reaches its scroll position */
