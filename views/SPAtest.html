@@ -294,7 +294,20 @@
       padding-bottom: 80px;
     }
 
+    .post-container {
+      display: block;
+      height: 500px;
+      overflow: hidden;
+    }
 
+    .post-title {
+      font-family: 'Lobster Two', serif;
+      text-align: center;
+    }
+
+    .post-block {
+      padding-bottom: 20px;
+    }
 
   </style>
 </head>
@@ -315,7 +328,6 @@
     class Post extends React.Component{
       constructor(props){
         super(props);
-        
         this.state = {
           posts: null
         };
@@ -332,11 +344,8 @@
             });
             console.log(data);
           });
-        //this.setState({
-        //  posts:'test'
-        //});
       }
-      
+
       render(){
         if(this.state.posts !== null){
           return(
@@ -349,15 +358,24 @@
                   __html:postHTML
                 };
                 return(
-                  <div className="container" key={post.id}>
+                  <div className="container post-block" key={post.id}>
                     <div className="row">
                       <div className="col-xs-0 col-sm-0"></div>
                       <div className="col-xs-12 col-sm-12">
-                        <div>
-                          <p>{post.title}</p>
-                          <p>{post.author}</p>
+                        <div className="post-container" id={post.id}>
+                          <h1 className="post-title">{post.title}</h1>
                           <div dangerouslySetInnerHTML={htmlObj}></div>
                         </div>
+                        <a id={"expand" + post.id} href="javascript:void(0)" onClick={ () => {
+                          if(document.getElementById(post.id).style.height === "100%"){
+                            document.getElementById(post.id).style.height = "500px";
+                            document.getElementById("expand" + post.id).textContent = "Show More";
+                          }
+                          else{
+                            document.getElementById(post.id).style.height = "100%";
+                            document.getElementById("expand" + post.id).textContent = "Show Less";
+                          }
+                        }}>Show More</a>
                       </div>
                       <div className="col-xs-0 col-sm-0"></div>
                     </div>
@@ -454,7 +472,7 @@
           <div className='jumbotron'>
             <h1 className='main-text'>Test</h1> <h1 className='third-text'>Jumbotron</h1><br></br>
             <p> Using bootstrap jumbotron</p>
-            <a href='https://jpoblog.herokuapp.com' className="btn btn-primary">Visit Blog</a>
+            <a href='https://jpoblog.herokuapp.com' className="btn btn-primary" target="_blank">Visit Blog</a>
           </div>
         );        
       }
@@ -600,7 +618,7 @@
       // Get the navbar
       var navbar = document.getElementById("navigationbar");    
       // Get the offset position of the navbar
-      var sticky = navbar.clientHeight;
+      var sticky = navbar.clientHeight - 20;
       // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
       if (window.pageYOffset >= sticky) {
         navbar.classList.add("sticky")
