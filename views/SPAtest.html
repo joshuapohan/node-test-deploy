@@ -334,7 +334,7 @@
       }
       
       componentDidMount(){
-         fetch('https://jpoblog.herokuapp.com/json/posts')
+         fetch('https://jpoblog.herokuapp.com/posts?type=json')
            .then((response) => {
             return response.json();
             })
